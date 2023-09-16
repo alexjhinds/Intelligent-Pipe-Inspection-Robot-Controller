@@ -1,0 +1,78 @@
+pipe_inspect_robot:
+  #publish all joint states
+  joint_state_controller:
+    type: "joint_state_controller/JointStateController"
+    publish_rate: 20
+
+  #Wheel 4 Controller
+  W4_joint_controller:
+    type: "velocity_controllers/JointVelocityController"
+    joint: W4_joint
+    pid_gains: {p: 0, i: 0, d: 0}
+
+  # Structured Light Sensor Mount Controller. Position Controller
+  SL_mount_controller:
+    type: "position_controllers/JointPositionController"
+    joint: SL_sensor_joint
+    pid_gains: {p: 0, i: 0, d: 0}
+
+  #Wheel 1 Controller
+  W1_joint_controller:
+    type: "velocity_controllers/JointVelocityController"
+    joint: W1_joint
+    pid_gains: {p: 0, i: 0, d: 0}
+
+  #Wheel 3 Controller
+  W3_joint_controller:
+    type: "velocity_controllers/JointVelocityController"
+    joint: W3_joint
+    pid_gains: {p: 0, i: 0, d: 0}
+  
+  #Wheel 6 Controller
+  W6_joint_controller:
+    type: "velocity_controllers/JointVelocityController"
+    joint: W6_joint
+    pid_gains: {p: 0, i: 0, d: 0}
+
+  #Wheel 5 Controller
+  W5_joint_controller:
+    type: "velocity_controllers/JointVelocityController"
+    joint: W5_joint
+    pid_gains: {p: 0, i: 0, d: 0}
+
+  #Wheel 2 Controller
+  W2_joint_controller:
+    type: "velocity_controllers/JointVelocityController"
+    joint: W2_joint
+    pid_gains: {p: 0, i: 0, d: 0}
+
+  #End Wheel 2 Controller
+  EWH2_joint_controller:
+    type: "velocity_controllers/JointVelocityController"
+    joint: EWH2_joint
+    pid_gains: {p: 0, i: 0, d: 0}   
+
+  #End Wheel 1 Controller
+  EWH1_joint_controller:
+    type: "velocity_controllers/JointVelocityController"
+    joint: EWH1_joint
+    pid_gains: {p: 0, i: 0, d: 0}  
+  
+  #Main Robot Body 2 link controller 
+  MP2_joint_controller:
+    type: "effort_controllers/JointEffortController"
+    joint: MP2_joint
+    pid_gains: {p: 0, i: 0, d: 0}  
+
+  #Main Robot Body 3 link controller 
+  MP3_joint_controller:
+    type: "effort_controllers/JointEffortController"
+    joint: MP3_joint
+    pid_gains: {p: 0, i: 0, d: 0}
+
+  #Main Robot Body 4 link controller 
+  MP4_joint_controller:
+    type: "effort_controllers/JointEffortController"
+    joint: MP4_joint
+    pid_gains: {p: 0, i: 0, d: 0}
+

@@ -1,0 +1,1194 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Create base link to allow the robot to be a mobile robot -->
+<robot name="pipe_inspect_robot">
+<link name="world_floating" />
+<joint name="world_to_base" type="fixed">
+    <parent link="world_floating"/>
+    <child link="base_link"/>
+</joint>
+
+<!-- Joint and Link Definitions -->
+<link name="base_link">
+    <inertial>
+      <origin
+        xyz="0.101655798451225 0.00728392643516322 4.71844785465692E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.274571044816181" />
+      <inertia
+        ixx="0.000101758477556096"
+        ixy="1.32195918388367E-05"
+        ixz="-5.05535618412219E-19"
+        iyy="0.000666033053441437"
+        iyz="1.09735772819498E-20"
+        izz="0.000631182572044083" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <!-- Optional Collision for the main body elements of the robot. By defualt collision is disabled to improve simulation performanace -->
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/base_link.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+<link name="MP1">
+    <inertial>
+      <origin
+        xyz="0.0777484739167308 -0.00794790982797029 -0.0175848894474675"
+        rpy="0 0 0" />
+      <mass
+        value="0.171315341336591" />
+      <inertia
+        ixx="5.64621585156551E-05"
+        ixy="6.80940163185208E-06"
+        ixz="4.47069853551275E-07"
+        iyy="0.000273418314362315"
+        iyz="3.37618555743716E-07"
+        izz="0.000246017004518593" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/MP1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <!-- Optional Collision for the main body elements of the robot. By defualt collision is disabled to improve simulation performanace -->
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/MP1.STL" />
+      </geometry>
+    </collision> -->
+ </link>
+<joint name="MP2_joint"
+    type="revolute">
+    <dynamics damping="0.1" friction="0.2"/>
+    <origin
+      xyz="0.17399 0 0.0175000000000005"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="MP1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+    lower="-2.7035"
+    upper="0.5235" 
+      effort="30"
+      velocity="100" />
+  </joint>
+<link name="SL_sensor">
+    <inertial>
+      <origin
+        xyz="0.0433615754910454 0.0165090039453389 0.000329770479719743"
+        rpy="0 0 0" />
+      <mass
+        value="0.0210038963317502" />
+      <inertia
+        ixx="2.12360512184748E-06"
+        ixy="-1.96598624281632E-06"
+        ixz="2.36216051191595E-07"
+        iyy="1.57911226602422E-05"
+        iyz="1.24528451811537E-07"
+        izz="1.68535997446025E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/SL_sensor.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/SL_sensor.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+<joint name="SL_sensor_joint"
+    type="revolute">
+    <origin
+      xyz="0.10849 0.0189999999999973 -0.0174999999999978"
+      rpy="0 0 0" />
+    <parent
+      link="MP1" />
+    <child
+      link="SL_sensor" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.5571"
+      upper="-0.5570"
+      effort="30"
+      velocity="100" />
+  </joint>
+
+
+
+
+<link name="SL_camera_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <!-- <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+    </visual> -->
+
+  </link>
+
+
+<joint name="SL_camera_frame_joint"
+    type="fixed">
+    <origin
+      xyz="0.09928 0 0" rpy="-1.57 0 0" /> 
+    <parent
+      link="SL_sensor" />
+    <child
+      link="SL_camera_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="30"
+      velocity="100" />
+  </joint>
+
+<link name="EWH1">
+    <inertial>
+      <origin
+        xyz="0.0232211374095972 1.61608702808902E-09 -3.10863587649202E-09"
+        rpy="0 0 0" />
+      <mass
+        value="0.00407017880090339" />
+      <inertia
+        ixx="1.83498660632129E-07"
+        ixy="2.1126505952872E-14"
+        ixz="-3.35480393979423E-14"
+        iyy="6.1012564324974E-07"
+        iyz="-8.36573739243285E-14"
+        izz="6.40183617308077E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/EWH1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/EWH1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="EWH1_joint"
+    type="continuous">
+    <origin
+      xyz="0.14699 0 -0.0174999999999977"
+      rpy="0 0 0" />
+    <parent
+      link="MP1" />
+    <child
+      link="EWH1" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="30"
+      velocity="100" />
+  </joint>
+<link name="EW1">
+    <inertial>
+      <origin
+        xyz="0 -5.27355936696949E-16 3.88578058618805E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.0417280634024084" />
+      <inertia
+        ixx="1.38688851303676E-05"
+        ixy="-1.96455395481344E-21"
+        ixz="5.16987882845642E-21"
+        iyy="1.38686595539309E-05"
+        iyz="1.75421023781982E-20"
+        izz="9.0527872571099E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/EW1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/EW1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="EW1_joint"
+    type="continuous">
+    <origin
+      xyz="0.0309999999999999 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="EWH1" />
+    <child
+      link="EW1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="30"
+      velocity="100" />
+  </joint>
+<link name="W1">
+    <inertial>
+      <origin
+        xyz="9.38711296326056E-05 4.69355648385489E-05 -0.00209387112958981"
+        rpy="0 0 0" />
+      <mass
+        value="0.0108592212539526" />
+      <inertia
+        ixx="5.10912276387676E-07"
+        ixy="7.3362701140111E-18"
+        ixz="1.24250714224823E-19"
+        iyy="5.10912276324717E-07"
+        iyz="-4.99323433478836E-19"
+        izz="8.73996961797569E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/W1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+          <cylinder radius="0.024" length="0.0025"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="W1_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 0.016000000000002"
+      rpy="0 0 0" />
+    <parent
+      link="MP1" />
+    <child
+      link="W1" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="30"
+      velocity="100" />
+  </joint>
+<link name="W6">
+    <inertial>
+      <origin
+        xyz="-9.38711296326056E-05 4.69355648380632E-05 -0.00190612887041014"
+        rpy="0 0 0" />
+      <mass
+        value="0.0108592212539526" />
+      <inertia
+        ixx="5.10912276387673E-07"
+        ixy="-7.33564150507123E-18"
+        ixz="1.24296522980102E-19"
+        iyy="5.10912276324713E-07"
+        iyz="4.99442395920728E-19"
+        izz="8.73996961797563E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/W6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.024" length="0.0025"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="W6_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 -0.0509999999999979"
+      rpy="3.14159265358979 0 3.14159265358979" />
+    <parent
+      link="MP1" />
+    <child
+      link="W6" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="30"
+      velocity="100" />
+  </joint>
+<link name="MP3">
+    <inertial>
+      <origin
+        xyz="-0.0723342015487746 -0.00728392643516204 -0.0175"
+        rpy="0 0 0" />
+      <mass
+        value="0.274571044816181" />
+      <inertia
+        ixx="0.000101758477556096"
+        ixy="-1.32195918388367E-05"
+        ixz="3.60166161818222E-19"
+        iyy="0.000666033053441437"
+        iyz="2.57105545476108E-19"
+        izz="0.000631182572044083" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/MP3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <!-- Optional Collision for the main body elements of the robot. By defualt collision is disabled to improve simulation performanace -->
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/MP3.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+<joint name="MP3_joint"
+    type="revolute">
+    <dynamics damping="0.1" friction="0.2"/>
+    <origin
+      xyz="0 0 0.0175000000000013"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="MP3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+ lower="-2.7035"
+    upper="0.5235" 
+      effort="30"
+      velocity="100" />
+  </joint>
+<link name="W3">
+    <inertial>
+      <origin
+        xyz="9.3871129632691E-05 4.6935564839215E-05 -0.00209387112958986"
+        rpy="0 0 0" />
+      <mass
+        value="0.0108592212539526" />
+      <inertia
+        ixx="5.10912276387676E-07"
+        ixy="7.33697278298772E-18"
+        ixz="1.24295828052579E-19"
+        iyy="5.10912276324717E-07"
+        iyz="-4.99387888538307E-19"
+        izz="8.73996961797569E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/W3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+       <cylinder radius="0.024" length="0.0025"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="W3_joint"
+    type="continuous">
+    <origin
+      xyz="-0.17399 0 0.016"
+      rpy="0 0 0" />
+    <parent
+      link="MP3" />
+    <child
+      link="W3" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="30"
+      velocity="100" />
+  </joint>
+<link name="W4">
+    <inertial>
+      <origin
+        xyz="-9.38711296327016E-05 4.69355648387432E-05 -0.00190612887041017"
+        rpy="0 0 0" />
+      <mass
+        value="0.0108592212539526" />
+      <inertia
+        ixx="5.10912276387671E-07"
+        ixy="-7.33704174205264E-18"
+        ixz="1.24339905393986E-19"
+        iyy="5.10912276324711E-07"
+        iyz="4.99443255747118E-19"
+        izz="8.73996961797559E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/W4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.024" length="0.0025"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="W4_joint"
+    type="continuous">
+    <origin
+      xyz="-0.17399 0 -0.0509999999999999"
+      rpy="3.14159265358979 0 3.14159265358979" />
+    <parent
+      link="MP3" />
+    <child
+      link="W4" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="30"
+      velocity="100" />
+  </joint>
+<link name="MP4">
+    <inertial>
+      <origin
+        xyz="-0.0488978158234846 -1.38777878078145E-17 -0.0175"
+        rpy="0 0 0" />
+      <mass
+        value="0.10067636067877" />
+      <inertia
+        ixx="1.76122087285153E-05"
+        ixy="-1.45316258144295E-20"
+        ixz="-8.18125184408226E-20"
+        iyy="0.000277343056222159"
+        iyz="-2.97797340640973E-24"
+        izz="0.000269671024908356" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/MP4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <!-- Optional Collision for the main body elements of the robot. By defualt collision is disabled to improve simulation performanace -->
+    <!-- <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/MP4.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+<joint name="MP4_joint"
+    type="revolute">
+    <dynamics damping="0.1" friction="0.2"/>
+    <origin
+      xyz="-0.17399 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="MP3" />
+    <child
+      link="MP4" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+ lower="-2.7035"
+    upper="0.5235" 
+      effort="30"
+      velocity="100" />
+  </joint>
+<link name="EWH2">
+    <inertial>
+      <origin
+        xyz="0.0232211374095963 1.616084085998E-09 -3.10863648711468E-09"
+        rpy="0 0 0" />
+      <mass
+        value="0.00407017880090338" />
+      <inertia
+        ixx="1.83498660632128E-07"
+        ixy="2.11265059571803E-14"
+        ixz="-3.35480360477528E-14"
+        iyy="6.10125643249737E-07"
+        iyz="-8.36573739267897E-14"
+        izz="6.40183617308075E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/EWH2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/EWH2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="EWH2_joint"
+    type="continuous">
+    <origin
+      xyz="-0.14699 0 -0.0175"
+      rpy="3.14159265358979 0 3.14159265358979" />
+    <parent
+      link="MP4" />
+    <child
+      link="EWH2" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="30"
+      velocity="100" />
+  </joint>
+<link name="EW2">
+    <inertial>
+      <origin
+        xyz="1.08246744900953E-15 -4.9960036108132E-16 8.32667268468867E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.0417280634024085" />
+      <inertia
+        ixx="1.38688851303677E-05"
+        ixy="2.94525867590112E-36"
+        ixz="5.0664812518873E-21"
+        iyy="1.38686595539309E-05"
+        iyz="-1.86399364871785E-20"
+        izz="9.05278725710991E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/EW2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/EW2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="EW2_joint"
+    type="continuous">
+    <origin
+      xyz="0.0309999999999991 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="EWH2" />
+    <child
+      link="EW2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="30"
+      velocity="100" />
+  </joint>
+<link name="W2">
+    <inertial>
+      <origin
+        xyz="9.38711296325778E-05 4.69355648376746E-05 -0.002093871129589"
+        rpy="0 0 0" />
+      <mass
+        value="0.0108592212539527" />
+      <inertia
+        ixx="5.10912276387677E-07"
+        ixy="7.33454595752855E-18"
+        ixz="1.24300397172531E-19"
+        iyy="5.10912276324721E-07"
+        iyz="-4.99342582969139E-19"
+        izz="8.73996961797575E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/W2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.024" length="0.0025"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="W2_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 0.0335000000000005"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="W2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="30"
+      velocity="100" />
+  </joint>
+<link name="W5">
+    <inertial>
+      <origin
+        xyz="-9.38711296326056E-05 4.69355648375913E-05 -0.00190612887041093"
+        rpy="0 0 0" />
+      <mass
+        value="0.0108592212539526" />
+      <inertia
+        ixx="5.10912276387671E-07"
+        ixy="-7.33651595482083E-18"
+        ixz="1.24328720142107E-19"
+        iyy="5.10912276324713E-07"
+        iyz="4.99359065646561E-19"
+        izz="8.7399696179756E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pipe_inspect_robot_description/meshes/W5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.024" length="0.0025"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="W5_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 -0.0334999999999995"
+      rpy="3.14159265358979 0 3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="W5" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="30"
+      velocity="100" />
+  </joint>
+
+
+
+<!-- Include joint state publisher plugin -->
+<gazebo>
+	<plugin name="gazebo_ros_joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+    
+	<updateRate>20</updateRate>
+	<joint_name>W4_joint</joint_name>
+    <joint_name>W1_joint</joint_name>
+    <joint_name>W3_joint</joint_name>
+    <joint_name>W6_joint</joint_name>
+    <joint_name>EWH1_joint</joint_name>
+    <joint_name>EWH2_joint</joint_name>
+    <joint_name>MP2_joint</joint_name>
+    <joint_name>MP3_joint</joint_name>
+    <joint_name>MP4_joint</joint_name>
+    <joint_name>W2_joint</joint_name>
+    <joint_name>W5_joint</joint_name>
+    </plugin>
+</gazebo>
+
+<!-- Transmission Elements -->
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="W4_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="W1_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="W3_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor3">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran4">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="W6_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor4">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran6">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="EWH1_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor6">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran7">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="EWH2_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor7">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran8">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="MP2_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor8">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran9">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="MP3_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor9">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran10">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="MP4_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor10">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran11">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="W2_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor11">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran12">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="W5_joint">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor12">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <!-- Structured Light Sensor -->
+  <transmission name="tran13">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="SL_sensor_joint">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface> 
+    </joint>
+    <actuator name="motor13">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+<!-- ROS control namespace -->
+<gazebo>
+  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+    <robotNamespace>/pipe_inspect_robot</robotNamespace>
+  </plugin>
+</gazebo>
+
+<!-- Friction adjustments -->
+<gazebo reference = "W1">
+  <mu1>0.1</mu1>
+  <mu2>0.9</mu2>
+  <fdir1>0 0 1</fdir1>
+</gazebo>
+
+<gazebo reference = "W2">
+  <mu1>0.1</mu1>
+  <mu2>0.9</mu2>
+  <fdir1>0 0 1</fdir1>
+</gazebo>
+
+<gazebo reference = "W3">
+  <mu1>0.1</mu1>
+  <mu2>0.9</mu2>
+  <fdir1>0 0 1</fdir1>
+</gazebo>
+
+<gazebo reference = "W4">
+  <mu1>0.1</mu1>
+  <mu2>0.9</mu2>
+  <fdir1>0 0 1</fdir1>
+</gazebo>
+
+<gazebo reference = "W5">
+  <mu1>0.1</mu1>
+  <mu2>0.9</mu2>
+  <fdir1>0 0 1</fdir1>
+</gazebo>
+
+<gazebo reference = "W6">
+  <mu1>0.1</mu1>
+  <mu2>0.9</mu2>
+  <fdir1>0 0 1</fdir1>
+</gazebo>
+
+<!-- Optional Damping Adjustments -->
+
+<!-- <gazebo reference = "W1_joint">
+<dynamics damping="5" friction="100.0" />
+</gazebo>
+<gazebo reference = "W2_joint">
+<dynamics damping="5" friction="100.0" />
+</gazebo>
+<gazebo reference = "W3_joint">
+<dynamics damping="5" friction="100.0" />
+</gazebo>
+<gazebo reference = "W4_joint">
+<dynamics damping="5" friction="100.0" />
+</gazebo>
+<gazebo reference = "W5_joint">
+<dynamics damping="5" friction="100.0" />
+</gazebo>
+<gazebo reference = "W6_joint">
+<dynamics damping="5" friction="100.0" />
+</gazebo>
+ -->
+
+<!-- IMU sensor definition. This publishes imu data at 20Hz -->
+  <gazebo reference="SL_sensor">
+    <gravity>true</gravity>
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>20</update_rate>
+      <visualize>true</visualize>
+      <topic>/imu</topic>
+      <pose>0 0 0 0 0 0</pose>
+    
+<plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+	<robotNamespace>/pipe_inspect_robot</robotNamespace>
+        <topicName>imu</topicName>
+        <bodyName>imu_link</bodyName>
+        <updateRateHZ>20.0</updateRateHZ>
+        <gaussianNoise>0.0</gaussianNoise>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <frameName>imu_link</frameName>
+        <initialOrientationAsReference>false</initialOrientationAsReference>
+    </plugin>
+</sensor>
+  </gazebo>
+
+
+  <!-- Camera and structured light sensor plugin -->
+  <gazebo reference="SL_camera_link">
+    <sensor name="camera" type="depth">
+        <update_rate>20</update_rate>
+        <camera>
+          <horizontal_fov>1.5089604</horizontal_fov>
+          <image>
+          <!-- Camera resolution here -->
+            <width>500</width>
+            <height>500</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.005</near>
+            <far>3</far>
+          </clip>
+        </camera>
+     
+        <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
+	        <robotNamespace>/pipe_inspect_robot</robotNamespace>
+          <baseline>0.2</baseline>
+          <alwaysOn>true</alwaysOn>
+          <!-- Keep this zero, update_rate in the parent <sensor> tag
+            will control the frame rate. -->
+          <updateRate>0.0</updateRate>
+          <cameraName>camera_ir</cameraName>
+          <imageTopicName>/camera/color/image_raw</imageTopicName>
+          <cameraInfoTopicName>/camera/color/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>/camera/depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>/camera/depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>/camera/depth/points</pointCloudTopicName>
+          <frameName>SL_camera_link</frameName>
+          <pointCloudCutoff>0.000001</pointCloudCutoff>
+          <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+          <distortionK1>0</distortionK1>
+          <distortionK2>0</distortionK2>
+          <distortionK3>0</distortionK3>
+          <distortionT1>0</distortionT1>
+          <distortionT2>0</distortionT2>
+          <CxPrime>0</CxPrime>
+          <Cx>0</Cx>
+          <Cy>0</Cy>
+          <focalLength>265.957545</focalLength>
+          <hackBaseline>0</hackBaseline>
+        </plugin>
+     
+      </sensor>
+  </gazebo>
+
+</robot>
+
+
+
+
+

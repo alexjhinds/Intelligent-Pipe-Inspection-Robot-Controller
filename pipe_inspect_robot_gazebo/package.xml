@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>pipe_inspect_robot_gazebo</name>
+  <version>1.0.0</version>
+  <description>The pipe_inspect_robot_gazebo package contains a the URDF file and model files for the pipe inspection robot platform designed for the CAAP project.</description>
+
+  <maintainer email="ahinds@mines.edu">Alex Hinds</maintainer>
+  <license>BSD</license>
+
+  <build_depend>message_generation</build_depend> 
+  
+  <exec_depend>message_runtime</exec_depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>rospy</depend>
+  <depend>ros-noetic-velocity-controllers</depend>
+
+</package>

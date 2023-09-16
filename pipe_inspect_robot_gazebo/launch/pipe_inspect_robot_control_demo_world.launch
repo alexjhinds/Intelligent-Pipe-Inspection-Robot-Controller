@@ -1,0 +1,87 @@
+<launch>
+
+<param name="robot_description" textfile="$(find pipe_inspect_robot_description)/urdf/pipe_inspect_robot.xacro"/>
+<rosparam file="$(find pipe_inspect_robot_control)/config/pipe_inspect_robot_joystick_parameters.yaml"/>
+<rosparam file="$(find pipe_inspect_robot_control)/config/pipe_inspect_robot_control.yaml"/>
+
+
+<!-- Arguments below define the pipe inspection robots initial spawn location and orientaiton -->
+<arg name="x" default="0"/> 
+<arg name="y" default="0.000"/> 
+<arg name="z" default="0.252164"/> 
+<arg name="roll" default="1.571592"/> 
+<arg name="pitch" default="0"/> 
+<arg name="yaw" default="-3.141592"/>
+<arg name="write_log_to_console" default = "log"/>
+
+<!-- Can change the spawn world by changing the file path to the world -->
+<include file="$(find pipe_inspect_robot_gazebo)/launch/world_launch/control_demo_world.launch" /> 
+ 
+
+<!-- load nodes needed to run the simulated robot -->
+<node name="tf_footprint_base"
+      pkg="tf"
+      type="static_transform_publisher"
+      args="0 0 0 0 0 0 base_link base_footprint 40" />
+
+<node name="joy_node"
+      pkg = "joy"
+      type = "joy_node"/>
+
+<node name="simulated_sl_sensor"
+      pkg = "pipe_inspect_robot_gazebo"
+      type = "simulated_sl_sensor"/> 
+
+<node name="spawner_model"
+      pkg="gazebo_ros"
+      type="spawn_model"
+      args="-file $(find pipe_inspect_robot_description)/urdf/pipe_inspect_robot.xacro -urdf -model pipe_inspect_robot -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)" 
+      output= "$(arg write_log_to_console)"/>
+
+<node name = "spring_joint_force_publisher"
+	    pkg = "pipe_inspect_robot_gazebo"
+	    type = "spring_joint_force_publisher.py" /> 
+
+<node name = "create_gui_camera_overlay"
+	    pkg = "pipe_inspect_robot_control"
+	    type = "create_gui_camera_overlay.py" />
+
+<node name = "pipe_structure_identifier"
+	    pkg = "pipe_inspect_robot_control"
+	    type = "manual_pipe_structure_identifier.py" />
+
+<node name = "main_robot_controller"
+	    pkg = "pipe_inspect_robot_control"
+	    type = "main_robot_controller.py" />
+
+<!-- Manual Joystick Teleop node that is disabled by default in favor of the intelligent manual controller (main_robot_controller) -->
+<!-- <node name = "joystick_teleop"
+	    pkg = "pipe_inspect_robot_control"
+	    type = "joystick_teleop.py" /> -->
+
+<!-- load the controllers -->
+  <node name="controller_spawner" 
+  pkg="controller_manager" 
+  type="spawner" 
+  respawn="false"
+    output="screen" 
+    ns="pipe_inspect_robot" 
+    args="joint_state_controller
+    W4_joint_controller 
+    W1_joint_controller 
+    W3_joint_controller 
+    W6_joint_controller 
+    EWH2_joint_controller 
+    EWH1_joint_controller 
+    MP2_joint_controller 
+    MP3_joint_controller 
+    MP4_joint_controller 
+    W5_joint_controller
+    W2_joint_controller
+    SL_mount_controller"/>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find pipe_inspect_robot_control)/config/robot_control_display.rviz" required="true" />
+</launch>

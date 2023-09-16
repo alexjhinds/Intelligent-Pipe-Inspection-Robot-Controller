@@ -1,0 +1,7 @@
+joy_node:
+  #Joystick Deadzone. Default: 0.4
+  deadzone: 0.40
+
+  #autorepeat_rate is the rate at which messages are sent from the Joy node when the controller has no inputs. 
+  #Currently this matches the rate of other ROS nodes in these packages
+  autorepeat_rate: 20.0

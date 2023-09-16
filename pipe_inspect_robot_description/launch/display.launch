@@ -1,0 +1,10 @@
+<!-- This Launch file is used to simply show the robot model in rviz to demonstrate that the model can be loaded and displays correctly -->
+
+<launch>
+	<param name="robot_description" command="cat $(find pipe_inspect_robot_description)/urdf/pipe_inspect_robot.xacro"/>
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find pipe_inspect_robot_description)/config/rviz_display.rviz" required="true" />
+</launch>
+
+
