@@ -1,5 +1,7 @@
 # Intelligent-Pipe-Inspection-Robot-Controller
 
+![alt text](DemoVideos/demo_image.png)
+
 This repository holds a set of ROS packages that implement a simulated environment for a pipe inspection robot, and provide an intelligent manual controller to allow and operator to control the robot more easily. 
 
 There are three packages: 
